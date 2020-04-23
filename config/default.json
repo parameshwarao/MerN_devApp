@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://edwisor:a65b7854n@cluster0-sumea.mongodb.net/test?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://edwisor:a65b7854n@cluster0-sumea.mongodb.net/social_app?retryWrites=true&w=majority",
+  "jwtsSecret": "mysecrettoken"
 }
