@@ -37,8 +37,8 @@ export const Register = () => {
         console.log(res);
       } catch (error) {
         console.error(error);
-      }
-    }*/
+      }*/
+    }
   };
 
   return (
