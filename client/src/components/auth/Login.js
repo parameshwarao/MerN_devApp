@@ -53,7 +53,7 @@ export const Login = () => {
         <input type='submit' className='btn btn-primary' value='Register' />
       </form>
       <p className='my-1'>
-        Already have an account? <Link to='/login'>Sign In</Link>
+        Don't have an account? <Link to='/register'>Sign up</Link>
       </p>
     </Fragment>
   );
