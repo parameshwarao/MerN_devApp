@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import PropTypes from 'prop-types';
+import { register } from '../../actions/auth';
 
-import axios from 'axios';
-
-export const Register = ({ setAlert }) => {
+export const Register = ({ setAlert, register }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,24 +23,7 @@ export const Register = ({ setAlert }) => {
     if (password !== password2) {
       setAlert('password do not match', 'danger');
     } else {
-      const newUser = {
-        name,
-        email,
-        password,
-      };
-      /*try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-
-        const body = JSON.stringify(newUser);
-        const res = await axios.post('/api/users', body, config);
-        console.log(res);
-      } catch (error) {
-        console.error(error);
-      }*/
+      register({ name, email, password });
     }
   };
 
@@ -109,7 +91,8 @@ export const Register = ({ setAlert }) => {
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 };
 
 //connect is used to connect redux store with component
-export default connect(null, { setAlert })(Register);
+export default connect(null, { setAlert, register })(Register);
