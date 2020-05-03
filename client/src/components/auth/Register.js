@@ -1,8 +1,11 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+import PropTypes from 'prop-types';
+import { register } from '../../actions/auth';
 
-export const Register = () => {
+export const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,28 +21,17 @@ export const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log('password do not match');
+      setAlert('password do not match', 'danger');
     } else {
-      const newUser = {
-        name,
-        email,
-        password,
-      };
-      /*try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-
-        const body = JSON.stringify(newUser);
-        const res = await axios.post('/api/users', body, config);
-        console.log(res);
-      } catch (error) {
-        console.error(error);
-      }*/
+      register({ name, email, password });
     }
   };
+
+  //if authenticated then redirected
+
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Fragment>
@@ -101,4 +93,15 @@ export const Register = () => {
   );
 };
 
-export default Register;
+//tells that register component that set alert properties passed are required
+
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+//connect is used to connect redux store with component
+export default connect(mapStateToProps, { setAlert, register })(Register);
